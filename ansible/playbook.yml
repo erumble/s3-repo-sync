@@ -1,0 +1,47 @@
+---
+- name: Provision a Docker Playground
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: install docker
+      yum:
+        name: "{{ item }}"
+        state: latest
+      with_items:
+        - docker
+        - python-setuptools
+
+    - name: create the docker group
+      group:
+        name: docker
+        state: present
+
+    - name: add vagrant user to docker group
+      user:
+        name: vagrant
+        groups: docker
+        append: yes
+    
+    - name: restart docker
+      service:
+        name: docker
+        state: restarted
+
+    - name: install pip
+      easy_install:
+        name: pip
+        state: latest
+
+    - name: install aws cli
+      pip:
+        name: awscli
+        state: latest
+      
+    - name: add custom repo for testing
+      yum_repository:
+        name: fnrpms
+        description: s3 bucket full of fucking rpms
+        baseurl: http://fnrpms.s3-website-us-east-1.amazonaws.com
+        gpgcheck: no
+        enabled: yes
