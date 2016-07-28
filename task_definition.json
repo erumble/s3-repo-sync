@@ -1,0 +1,39 @@
+{
+    "taskRoleArn": "{{ role_with_s3_rw_access }}",
+    "containerDefinitions": [
+        {
+            "volumesFrom": [],
+            "memory": 300,
+            "extraHosts": null,
+            "dnsServers": null,
+            "disableNetworking": null,
+            "dnsSearchDomains": null,
+            "portMappings": [],
+            "hostname": null,
+            "essential": true,
+            "entryPoint": [],
+            "mountPoints": [],
+            "name": "s3-repo-sync",
+            "ulimits": null,
+            "dockerSecurityOptions": null,
+            "environment": [
+                {
+                    "name": "S3_BUCKET",
+                    "value": "{{ s3_bucket }}"
+                }
+            ],
+            "links": [],
+            "workingDirectory": null,
+            "readonlyRootFilesystem": null,
+            "image": "erumble/s3-repo-sync:latest",
+            "command": [],
+            "user": null,
+            "dockerLabels": null,
+            "logConfiguration": null,
+            "cpu": 10,
+            "privileged": null
+        }
+    ],
+    "volumes": [],
+    "family": "s3-repo-sync"
+}
