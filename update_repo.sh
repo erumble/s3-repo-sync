@@ -10,17 +10,8 @@ fi
 
 # pull down repo, run createrepo, push it back up
 aws s3 sync $s3_url $repo_dir
-pushd $repo_dir
-  createrepo --update --deltas .
-  for arch in noarch SRPMS x86_64; do
-    if [ ! -d "$arch" ]; then
-      mkdir $arch
-    fi
-    createrepo --update --deltas $arch
-  done
-popd
-
-aws s3 sync $repo_dir $s3_url --delete
+echo `find $repo_dir -mindepth 2 -maxdepth 2 -type d` | xargs -n 1 -P 8 createrepo --update --deltas
+aws s3 sync $repo_dir $s3_url --delete --exclude "*.rpm"
 
 # clean up after ourselves
 rm -rf $repo_dir

@@ -41,7 +41,7 @@
     - name: add custom repo for testing
       yum_repository:
         name: fnrpms
-        description: s3 bucket full of fucking rpms
-        baseurl: http://fnrpms.s3-website-us-east-1.amazonaws.com
+        description: s3 bucket full of rpms
+        baseurl: "http://fnrpms.s3-website-us-east-1.amazonaws.com/$releasever/$basearch"
         gpgcheck: no
         enabled: yes
