@@ -20,6 +20,10 @@
                 {
                     "name": "S3_BUCKET",
                     "value": "{{ s3_bucket }}"
+                },
+                {
+                    "name": "REGION",
+                    "value": "{{ aws_region }}"
                 }
             ],
             "links": [],
