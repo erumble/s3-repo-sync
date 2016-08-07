@@ -3,3 +3,6 @@
 
 # ignore ansible crap
 **/*.retry
+
+# ignore vim swp files
+**/*.swp
